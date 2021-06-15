@@ -10,7 +10,7 @@ use async_trait::async_trait;
 use chrono::Utc;
 use futures::{SinkExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
-use patch_db::{PatchDb, Revision};
+use patch_db::{Dump, PatchDb, Revision};
 use rpc_toolkit::hyper::{Body, Request, Response, Server, StatusCode};
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
@@ -143,7 +143,7 @@ fn db(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
 #[serde(untagged)]
 enum RevisionsRes {
     Revisions(Vec<Arc<Revision>>),
-    Dump(Value),
+    Dump(Dump),
 }
 
 #[command(rpc_only)]
@@ -171,7 +171,7 @@ async fn revisions(
 }
 
 #[command(rpc_only)]
-async fn dump(#[context] ctx: RpcContext) -> Result<Value, RpcError> {
+async fn dump(#[context] ctx: RpcContext) -> Result<Dump, RpcError> {
     Ok(ctx.db.dump().await)
 }
 
