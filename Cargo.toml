@@ -1,0 +1,22 @@
+[package]
+authors = ["Aiden McClelland <me@drbonez.dev>"]
+edition = "2018"
+name = "ws-example"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "*"
+async-trait = "*"
+clap = "*"
+futures = "*"
+hyper-ws-listener = { git = "https://github.com/fisherdarling/hyper-ws-listener.git", branch = "main" }
+log = "*"
+patch-db = { path = "../patch-db/patch-db" }
+rpc-toolkit = { path = "../rpc-toolkit/rpc-toolkit" }
+serde = { version = "*", features = ["derive"] }
+simple-logging = "*"
+tokio = { version = "*", features = ["full"] }
+tokio-tungstenite = "*"
+toml = "*"
