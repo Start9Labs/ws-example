@@ -9,6 +9,7 @@ version = "0.1.0"
 [dependencies]
 anyhow = "*"
 async-trait = "*"
+chrono = { version = "*", features = ["serde"] }
 clap = "*"
 futures = "*"
 hyper-ws-listener = { git = "https://github.com/fisherdarling/hyper-ws-listener.git", branch = "main" }

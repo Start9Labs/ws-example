@@ -3,9 +3,11 @@ use std::net::{IpAddr, SocketAddr};
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::time::Duration;
 
 use anyhow::Error;
 use async_trait::async_trait;
+use chrono::Utc;
 use futures::{SinkExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
 use patch_db::{PatchDb, Revision};
@@ -233,16 +235,37 @@ fn err_to_500(e: Error) -> Response<Body> {
 async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     let rpc_ctx = RpcContext::init(cfg_path).await?;
     let ws_ctx = rpc_ctx.clone();
-    let rpc_ctx_rev_cache = rpc_ctx.clone();
+
+    let rev_cache_ctx = rpc_ctx.clone();
     let revision_cache_task = tokio::spawn(async move {
-        let mut sub = rpc_ctx_rev_cache.db.subscribe();
+        let mut sub = rev_cache_ctx.db.subscribe();
         loop {
             let rev = sub.recv().await.unwrap(); // TODO: handle falling behind
-            let mut cache = rpc_ctx_rev_cache.revision_cache.write().await;
+            let mut cache = rev_cache_ctx.revision_cache.write().await;
             cache.push_back(rev);
-            if cache.len() > rpc_ctx_rev_cache.revision_cache_size {
+            if cache.len() > rev_cache_ctx.revision_cache_size {
                 cache.pop_front();
             }
+        }
+    })
+    .map_err(Error::from);
+
+    let twiddler_ctx = rpc_ctx.clone();
+    let twiddler_task = tokio::spawn(async move {
+        loop {
+            tokio::time::sleep(Duration::from_secs(5)).await;
+            log::info!("updating /package-data/bitcoind/installed/status/main/started");
+            twiddler_ctx
+                .db
+                .put(
+                    &"/package-data/bitcoind/installed/status/main/started"
+                        .parse::<JsonPointer>()
+                        .unwrap(),
+                    &Utc::now(),
+                    None,
+                )
+                .await
+                .unwrap();
         }
     })
     .map_err(Error::from);
@@ -274,7 +297,7 @@ async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     }
     .map_err(Error::from);
 
-    tokio::try_join!(revision_cache_task, rpc_server, ws_server)?;
+    tokio::try_join!(revision_cache_task, twiddler_task, rpc_server, ws_server)?;
 
     Ok(())
 }
