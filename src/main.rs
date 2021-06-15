@@ -9,7 +9,7 @@ use async_trait::async_trait;
 use futures::{SinkExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
 use patch_db::{PatchDb, Revision};
-use rpc_toolkit::hyper::{Body, Request, Response, StatusCode};
+use rpc_toolkit::hyper::{Body, Request, Response, Server, StatusCode};
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
 use rpc_toolkit::yajrc::RpcError;
@@ -79,17 +79,27 @@ impl RpcContext {
         } else {
             RpcContextConfig::default()
         };
+        let db_path = base
+            .db
+            .unwrap_or_else(|| Path::new("/mnt/embassy-os/embassy.db").to_owned());
+        let db_path_exists = tokio::fs::metadata(&db_path).await.is_ok();
         let seed = Arc::new(RpcContextSeed {
             bind_rpc: base.bind_rpc.unwrap_or(([127, 0, 0, 1], 5959).into()),
             bind_ws: base.bind_ws.unwrap_or(([127, 0, 0, 1], 5960).into()),
-            db: PatchDb::open(
-                base.db
-                    .unwrap_or_else(|| Path::new("/mnt/embassy-os/embassy.db").to_owned()),
-            )
-            .await?,
+            db: PatchDb::open(db_path).await?,
             revision_cache_size: base.revision_cache_size.unwrap_or(512),
             revision_cache: RwLock::new(VecDeque::new()),
         });
+        if !db_path_exists {
+            let root_ptr: JsonPointer = Default::default();
+            seed.db
+                .put(
+                    &root_ptr,
+                    &rpc_toolkit::serde_json::from_str::<Value>(include_str!("mock.json"))?,
+                    None,
+                )
+                .await?;
+        }
         Ok(Self(seed))
     }
 }
@@ -240,7 +250,8 @@ async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     let rpc_server = rpc_server!(main_api, rpc_ctx, status_fn).map_err(Error::from);
 
     let ws_server = {
-        let builder = ::rpc_toolkit::rpc_server_helpers::make_builder(&ws_ctx);
+        let builder = Server::bind(&ws_ctx.bind_ws);
+
         let make_svc = ::rpc_toolkit::hyper::service::make_service_fn(move |_| {
             let ctx = ws_ctx.clone();
             async move {
