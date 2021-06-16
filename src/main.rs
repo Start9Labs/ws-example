@@ -8,10 +8,12 @@ use std::time::Duration;
 use anyhow::Error;
 use async_trait::async_trait;
 use chrono::Utc;
-use futures::{SinkExt, TryFutureExt};
+use futures::{FutureExt, SinkExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
 use patch_db::{Dump, PatchDb, Revision};
-use rpc_toolkit::hyper::{Body, Request, Response, Server, StatusCode};
+use rpc_toolkit::hyper::http::Error as HttpError;
+use rpc_toolkit::hyper::{Body, Method, Request, Response, Server, StatusCode};
+use rpc_toolkit::rpc_server_helpers::{DynMiddlewareStage2, DynMiddlewareStage3};
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
 use rpc_toolkit::yajrc::RpcError;
@@ -232,6 +234,31 @@ fn err_to_500(e: Error) -> Response<Body> {
         .unwrap()
 }
 
+async fn cors<'a, 'b, Params: for<'de> Deserialize<'de> + 'static>(
+    req: &mut Request<Body>,
+) -> Result<Result<DynMiddlewareStage2<'a, 'b, Params>, Response<Body>>, HttpError> {
+    if req.method() == Method::OPTIONS {
+        Ok(Err(Response::builder()
+            .header("Access-Control-Allow-Origin", "*")
+            .body(Body::empty())?))
+    } else {
+        Ok(Ok(Box::new(|_req| {
+            async move {
+                let res: DynMiddlewareStage3 = Box::new(|res| {
+                    async move {
+                        res.headers_mut()
+                            .insert("Access-Control-Allow-Origin", "*".parse()?);
+                        Ok::<_, HttpError>(())
+                    }
+                    .boxed()
+                });
+                Ok::<_, HttpError>(Ok(res))
+            }
+            .boxed()
+        })))
+    }
+}
+
 async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     let rpc_ctx = RpcContext::init(cfg_path).await?;
     let ws_ctx = rpc_ctx.clone();
@@ -270,7 +297,15 @@ async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     })
     .map_err(Error::from);
 
-    let rpc_server = rpc_server!(main_api, rpc_ctx, status_fn).map_err(Error::from);
+    let rpc_server = rpc_server!({
+        command: main_api,
+        context: rpc_ctx,
+        status: status_fn,
+        middleware: [
+            cors,
+        ],
+    })
+    .map_err(Error::from);
 
     let ws_server = {
         let builder = Server::bind(&ws_ctx.bind_ws);

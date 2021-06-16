@@ -1110,6 +1110,7 @@ name = "rpc-toolkit"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "futures",
  "hyper",
  "lazy_static",
  "reqwest",
