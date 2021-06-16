@@ -249,6 +249,7 @@ async fn cors<'a, 'b, Params: for<'de> Deserialize<'de> + 'static>(
             )
             .header("Access-Control-Allow-Methods", "*")
             .header("Access-Control-Allow-Headers", "*")
+            .header("Access-Control-Allow-Credentials", "true")
             .body(Body::empty())?))
     } else {
         Ok(Ok(Box::new(|_req| {
