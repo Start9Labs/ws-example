@@ -12,7 +12,7 @@ async-trait = "*"
 chrono = { version = "*", features = ["serde"] }
 clap = "*"
 futures = "*"
-hyper-ws-listener = { git = "https://github.com/fisherdarling/hyper-ws-listener.git", branch = "main" }
+hyper-ws-listener = { git = "https://github.com/Start9Labs/hyper-ws-listener.git", branch = "main" }
 log = "*"
 patch-db = { path = "../patch-db/patch-db" }
 rpc-toolkit = { path = "../rpc-toolkit/rpc-toolkit" }
