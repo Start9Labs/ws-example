@@ -208,8 +208,14 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
     let (res, ws_fut) = hyper_ws_listener::create_ws(req)?;
     if let Some(ws_fut) = ws_fut {
         tokio::task::spawn(async move {
-            let mut sub = ctx.db.subscribe();
+            let (dump, mut sub) = ctx.db.dump_and_sub().await;
             let mut stream = ws_fut.await.unwrap().unwrap();
+            stream
+                .send(Message::Text(
+                    rpc_toolkit::serde_json::to_string(&dump).unwrap(),
+                ))
+                .await
+                .unwrap();
 
             loop {
                 let rev = sub.recv().await.unwrap();
