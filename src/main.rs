@@ -8,7 +8,7 @@ use std::time::Duration;
 use anyhow::Error;
 use async_trait::async_trait;
 use chrono::Utc;
-use futures::{FutureExt, SinkExt, TryFutureExt};
+use futures::{FutureExt, SinkExt, StreamExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
 use patch_db::{Dump, PatchDb, Revision};
 use rpc_toolkit::hyper::http::Error as HttpError;
@@ -210,6 +210,7 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
         tokio::task::spawn(async move {
             let (dump, mut sub) = ctx.db.dump_and_sub().await;
             let mut stream = ws_fut.await.unwrap().unwrap();
+            stream.next().await;
             stream
                 .send(Message::Text(
                     rpc_toolkit::serde_json::to_string(&dump).unwrap(),
