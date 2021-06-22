@@ -26,7 +26,7 @@
             "state": "installed",
             "static-files": {
                 "license": "/public/package-data/bitcoind/0.20.0/LICENSE.md",
-                "icon": "/public/package-data/bitcoind/0.20.0/icon.png",
+                "icon": "/assets/img/service-icons/bitcoind.png",
                 "instructions": "/public/package-data/lnd/0.20.0/INSTRUCTIONS.md"
             },
             "installed": {
@@ -65,19 +65,7 @@
                         "inject": false,
                         "shm-size": ""
                     },
-                    "health-check": {
-                        "type": "docker",
-                        "image": "",
-                        "system": true,
-                        "entrypoint": "",
-                        "args": [
-                            ""
-                        ],
-                        "mounts": {},
-                        "io-format": "yaml",
-                        "inject": false,
-                        "shm-size": ""
-                    },
+                    "health-checks": {},
                     "config": null,
                     "volumes": {},
                     "min-os-version": "0.2.12",
@@ -178,7 +166,16 @@
                     "main": {
                         "status": "running",
                         "started": "2021-06-14T20:49:17.774Z",
-                        "health": {}
+                        "health": {
+                            "chain-state": {
+                                "time": "2021-06-14T20:49:17.774Z",
+                                "result": "warming-up"
+                            },
+                            "p2p-interface": {
+                              "time": "2021-06-14T20:49:17.774Z",
+                              "result": "success"
+                          }
+                        }
                     },
                     "dependency-errors": {}
                 },
@@ -213,7 +210,7 @@
             "state": "installed",
             "static-files": {
                 "license": "/public/package-data/lnd/0.11.1/LICENSE.md",
-                "icon": "/public/package-data/lnd/0.11.1/icon.png",
+                "icon": "/assets/img/service-icons/lnd.png",
                 "instructions": "/public/package-data/lnd/0.11.1/INSTRUCTIONS.md"
             },
             "installed": {
@@ -252,19 +249,7 @@
                         "inject": false,
                         "shm-size": ""
                     },
-                    "health-check": {
-                        "type": "docker",
-                        "image": "",
-                        "system": true,
-                        "entrypoint": "",
-                        "args": [
-                            ""
-                        ],
-                        "mounts": {},
-                        "io-format": "yaml",
-                        "inject": false,
-                        "shm-size": ""
-                    },
+                    "health-checks": {},
                     "config": null,
                     "volumes": {},
                     "min-os-version": "0.2.12",
