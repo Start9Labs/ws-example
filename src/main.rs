@@ -10,7 +10,7 @@ use async_trait::async_trait;
 use chrono::Utc;
 use futures::{FutureExt, SinkExt, StreamExt, TryFutureExt};
 use patch_db::json_ptr::JsonPointer;
-use patch_db::{Dump, PatchDb, Revision};
+use patch_db::{DiffPatch, Dump, PatchDb, Revision};
 use rpc_toolkit::hyper::http::Error as HttpError;
 use rpc_toolkit::hyper::{Body, Method, Request, Response, Server, StatusCode};
 use rpc_toolkit::rpc_server_helpers::{DynMiddlewareStage2, DynMiddlewareStage3};
@@ -136,7 +136,7 @@ fn main_api(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
     Ok(ctx)
 }
 
-#[command(subcommands(revisions, dump, put))]
+#[command(subcommands(revisions, dump, put, patch))]
 fn db(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
     Ok(ctx)
 }
@@ -192,6 +192,17 @@ async fn ui(
     Ok(WithRevision {
         response: (),
         revision: ctx.db.put(&ptr, &value, None).await?,
+    })
+}
+
+#[command(rpc_only)]
+async fn patch(
+    #[context] ctx: RpcContext,
+    #[arg] patch: DiffPatch,
+) -> Result<WithRevision<()>, RpcError> {
+    Ok(WithRevision {
+        response: (),
+        revision: ctx.db.apply(patch, None, None).await?,
     })
 }
 
