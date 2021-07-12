@@ -29,138 +29,138 @@
                 "icon": "/assets/img/service-icons/bitcoind.png",
                 "instructions": "/public/package-data/lnd/0.20.0/INSTRUCTIONS.md"
             },
+            "manifest": {
+              "id": "bitcoind",
+              "title": "Bitcoin Core",
+              "version": "0.20.0",
+              "description": {
+                  "short": "A Bitcoin full node by Bitcoin Core.",
+                  "long": "Bitcoin is a decentralized consensus protocol and settlement network."
+              },
+              "release-notes": "Taproot, Schnorr, and more.",
+              "license": "MIT",
+              "wrapper-repo": "https://github.com/start9labs/bitcoind-wrapper",
+              "upstream-repo": "https://github.com/bitcoin/bitcoin",
+              "support-site": "https://bitcoin.org",
+              "marketing-site": "https://bitcoin.org",
+              "donation-url": "https://start9.com",
+              "alerts": {
+                  "install": "Bitcoin can take over a week to sync.",
+                  "uninstall": "Chain state will be lost, as will any funds stored on your Bitcoin Core waller that have not been backed up.",
+                  "restore": null,
+                  "start": null,
+                  "stop": "Stopping Bitcoin is bad for your health."
+              },
+              "main": {
+                  "type": "docker",
+                  "image": "",
+                  "system": true,
+                  "entrypoint": "",
+                  "args": [
+                      ""
+                  ],
+                  "mounts": {},
+                  "io-format": "yaml",
+                  "inject": false,
+                  "shm-size": ""
+              },
+              "health-checks": {},
+              "config": null,
+              "volumes": {},
+              "min-os-version": "0.2.12",
+              "interfaces": {
+                  "ui": {
+                      "name": "Node Visualizer",
+                      "description": "Web application for viewing information about your node and the Bitcoin network.",
+                      "ui": true,
+                      "tor-config": {
+                          "hidden-service-version": "v3",
+                          "port-mapping": {}
+                      },
+                      "lan-config": {},
+                      "protocols": []
+                  },
+                  "rpc": {
+                      "name": "RPC",
+                      "description": "Used by wallets to interact with your Bitcoin Core node.",
+                      "ui": false,
+                      "tor-config": {
+                          "hidden-service-version": "v3",
+                          "port-mapping": {}
+                      },
+                      "lan-config": {},
+                      "protocols": []
+                  },
+                  "p2p": {
+                      "name": "P2P",
+                      "description": "Used by other Bitcoin nodes to communicate and interact with your node.",
+                      "ui": false,
+                      "tor-config": {
+                          "hidden-service-version": "v3",
+                          "port-mapping": {}
+                      },
+                      "lan-config": {},
+                      "protocols": []
+                  }
+              },
+              "backup": {
+                  "create": {
+                      "type": "docker",
+                      "image": "",
+                      "system": true,
+                      "entrypoint": "",
+                      "args": [
+                          ""
+                      ],
+                      "mounts": {},
+                      "io-format": "yaml",
+                      "inject": false,
+                      "shm-size": ""
+                  },
+                  "restore": {
+                      "type": "docker",
+                      "image": "",
+                      "system": true,
+                      "entrypoint": "",
+                      "args": [
+                          ""
+                      ],
+                      "mounts": {},
+                      "io-format": "yaml",
+                      "inject": false,
+                      "shm-size": ""
+                  }
+              },
+              "migrations": null,
+              "actions": {
+                  "resync": {
+                      "name": "Resync Blockchain",
+                      "description": "Use this to resync the Bitcoin blockchain from genesis",
+                      "warning": "This will take a couple of days.",
+                      "allowed-statuses": [
+                          "running",
+                          "stopped"
+                      ],
+                      "implementation": {
+                          "type": "docker",
+                          "image": "",
+                          "system": true,
+                          "entrypoint": "",
+                          "args": [
+                              ""
+                          ],
+                          "mounts": {},
+                          "io-format": "yaml",
+                          "inject": false,
+                          "shm-size": ""
+                      },
+                      "input-spec": null
+                  }
+              },
+              "permissions": {},
+              "dependencies": {}
+            },
             "installed": {
-                "manifest": {
-                    "id": "bitcoind",
-                    "title": "Bitcoin Core",
-                    "version": "0.20.0",
-                    "description": {
-                        "short": "A Bitcoin full node by Bitcoin Core.",
-                        "long": "Bitcoin is a decentralized consensus protocol and settlement network."
-                    },
-                    "release-notes": "Taproot, Schnorr, and more.",
-                    "license": "MIT",
-                    "wrapper-repo": "https://github.com/start9labs/bitcoind-wrapper",
-                    "upstream-repo": "https://github.com/bitcoin/bitcoin",
-                    "support-site": "https://bitcoin.org",
-                    "marketing-site": "https://bitcoin.org",
-                    "donation-url": "https://start9.com",
-                    "alerts": {
-                        "install": "Bitcoin can take over a week to sync.",
-                        "uninstall": "Chain state will be lost, as will any funds stored on your Bitcoin Core waller that have not been backed up.",
-                        "restore": null,
-                        "start": null,
-                        "stop": "Stopping Bitcoin is bad for your health."
-                    },
-                    "main": {
-                        "type": "docker",
-                        "image": "",
-                        "system": true,
-                        "entrypoint": "",
-                        "args": [
-                            ""
-                        ],
-                        "mounts": {},
-                        "io-format": "yaml",
-                        "inject": false,
-                        "shm-size": ""
-                    },
-                    "health-checks": {},
-                    "config": null,
-                    "volumes": {},
-                    "min-os-version": "0.2.12",
-                    "interfaces": {
-                        "ui": {
-                            "name": "Node Visualizer",
-                            "description": "Web application for viewing information about your node and the Bitcoin network.",
-                            "ui": true,
-                            "tor-config": {
-                                "hidden-service-version": "v3",
-                                "port-mapping": {}
-                            },
-                            "lan-config": {},
-                            "protocols": []
-                        },
-                        "rpc": {
-                            "name": "RPC",
-                            "description": "Used by wallets to interact with your Bitcoin Core node.",
-                            "ui": false,
-                            "tor-config": {
-                                "hidden-service-version": "v3",
-                                "port-mapping": {}
-                            },
-                            "lan-config": {},
-                            "protocols": []
-                        },
-                        "p2p": {
-                            "name": "P2P",
-                            "description": "Used by other Bitcoin nodes to communicate and interact with your node.",
-                            "ui": false,
-                            "tor-config": {
-                                "hidden-service-version": "v3",
-                                "port-mapping": {}
-                            },
-                            "lan-config": {},
-                            "protocols": []
-                        }
-                    },
-                    "backup": {
-                        "create": {
-                            "type": "docker",
-                            "image": "",
-                            "system": true,
-                            "entrypoint": "",
-                            "args": [
-                                ""
-                            ],
-                            "mounts": {},
-                            "io-format": "yaml",
-                            "inject": false,
-                            "shm-size": ""
-                        },
-                        "restore": {
-                            "type": "docker",
-                            "image": "",
-                            "system": true,
-                            "entrypoint": "",
-                            "args": [
-                                ""
-                            ],
-                            "mounts": {},
-                            "io-format": "yaml",
-                            "inject": false,
-                            "shm-size": ""
-                        }
-                    },
-                    "migrations": null,
-                    "actions": {
-                        "resync": {
-                            "name": "Resync Blockchain",
-                            "description": "Use this to resync the Bitcoin blockchain from genesis",
-                            "warning": "This will take a couple of days.",
-                            "allowed-statuses": [
-                                "running",
-                                "stopped"
-                            ],
-                            "implementation": {
-                                "type": "docker",
-                                "image": "",
-                                "system": true,
-                                "entrypoint": "",
-                                "args": [
-                                    ""
-                                ],
-                                "mounts": {},
-                                "io-format": "yaml",
-                                "inject": false,
-                                "shm-size": ""
-                            },
-                            "input-spec": null
-                        }
-                    },
-                    "permissions": {},
-                    "dependencies": {}
-                },
                 "status": {
                     "configured": true,
                     "main": {
@@ -213,161 +213,161 @@
                 "icon": "/assets/img/service-icons/lnd.png",
                 "instructions": "/public/package-data/lnd/0.11.1/INSTRUCTIONS.md"
             },
+            "manifest": {
+              "id": "lnd",
+              "title": "Lightning Network Daemon",
+              "version": "0.11.1",
+              "description": {
+                  "short": "A bolt spec compliant client.",
+                  "long": "More info about LND. More info about LND. More info about LND."
+              },
+              "release-notes": "Dual funded channels!",
+              "license": "MIT",
+              "wrapper-repo": "https://github.com/start9labs/lnd-wrapper",
+              "upstream-repo": "https://github.com/lightningnetwork/lnd",
+              "support-site": "https://lightning.engineering/",
+              "marketing-site": "https://lightning.engineering/",
+              "donation-url": null,
+              "alerts": {
+                  "install": null,
+                  "uninstall": null,
+                  "restore": "If this is a duplicate instance of the same LND node, you may loose your funds.",
+                  "start": "Starting LND is good for your health.",
+                  "stop": null
+              },
+              "main": {
+                  "type": "docker",
+                  "image": "",
+                  "system": true,
+                  "entrypoint": "",
+                  "args": [
+                      ""
+                  ],
+                  "mounts": {},
+                  "io-format": "yaml",
+                  "inject": false,
+                  "shm-size": ""
+              },
+              "health-checks": {},
+              "config": null,
+              "volumes": {},
+              "min-os-version": "0.2.12",
+              "interfaces": {
+                  "rpc": {
+                      "name": "RPC interface",
+                      "description": "Good for connecting to your node at a distance.",
+                      "ui": true,
+                      "tor-config": {
+                          "hidden-service-version": "v3",
+                          "port-mapping": {}
+                      },
+                      "lan-config": {
+                          "44": {
+                              "ssl": true,
+                              "mapping": 33
+                          }
+                      },
+                      "protocols": []
+                  },
+                  "grpc": {
+                      "name": "GRPC",
+                      "description": "Certain wallet use grpc.",
+                      "ui": false,
+                      "tor-config": {
+                          "hidden-service-version": "v3",
+                          "port-mapping": {}
+                      },
+                      "lan-config": {
+                          "66": {
+                              "ssl": true,
+                              "mapping": 55
+                          }
+                      },
+                      "protocols": []
+                  }
+              },
+              "backup": {
+                  "create": {
+                      "type": "docker",
+                      "image": "",
+                      "system": true,
+                      "entrypoint": "",
+                      "args": [
+                          ""
+                      ],
+                      "mounts": {},
+                      "io-format": "yaml",
+                      "inject": false,
+                      "shm-size": ""
+                  },
+                  "restore": {
+                      "type": "docker",
+                      "image": "",
+                      "system": true,
+                      "entrypoint": "",
+                      "args": [
+                          ""
+                      ],
+                      "mounts": {},
+                      "io-format": "yaml",
+                      "inject": false,
+                      "shm-size": ""
+                  }
+              },
+              "migrations": null,
+              "actions": {
+                  "resync": {
+                      "name": "Resync Network Graph",
+                      "description": "Your node will resync its network graph.",
+                      "warning": "This will take a couple hours.",
+                      "allowed-statuses": [
+                          "running"
+                      ],
+                      "implementation": {
+                          "type": "docker",
+                          "image": "",
+                          "system": true,
+                          "entrypoint": "",
+                          "args": [
+                              ""
+                          ],
+                          "mounts": {},
+                          "io-format": "yaml",
+                          "inject": false,
+                          "shm-size": ""
+                      },
+                      "input-spec": {
+                          "label": {
+                              "type": "string",
+                              "name": "Name of Resync",
+                              "nullable": false,
+                              "masked": false,
+                              "copyable": false
+                          }
+                      }
+                  }
+              },
+              "permissions": {},
+              "dependencies": {
+                  "bitcoind": {
+                      "version": "=0.21.0",
+                      "description": "LND needs bitcoin to live.",
+                      "optional": null,
+                      "recommended": true,
+                      "config": [],
+                      "interfaces": []
+                  },
+                  "bitcoin-proxy": {
+                      "version": ">=0.2.2",
+                      "description": "As long as Bitcoin is pruned, LND needs Bitcoin Proxy to fetch block over the P2P network.",
+                      "optional": null,
+                      "recommended": true,
+                      "config": [],
+                      "interfaces": []
+                  }
+              }
+            },
             "installed": {
-                "manifest": {
-                    "id": "lnd",
-                    "title": "Lightning Network Daemon",
-                    "version": "0.11.1",
-                    "description": {
-                        "short": "A bolt spec compliant client.",
-                        "long": "More info about LND. More info about LND. More info about LND."
-                    },
-                    "release-notes": "Dual funded channels!",
-                    "license": "MIT",
-                    "wrapper-repo": "https://github.com/start9labs/lnd-wrapper",
-                    "upstream-repo": "https://github.com/lightningnetwork/lnd",
-                    "support-site": "https://lightning.engineering/",
-                    "marketing-site": "https://lightning.engineering/",
-                    "donation-url": null,
-                    "alerts": {
-                        "install": null,
-                        "uninstall": null,
-                        "restore": "If this is a duplicate instance of the same LND node, you may loose your funds.",
-                        "start": "Starting LND is good for your health.",
-                        "stop": null
-                    },
-                    "main": {
-                        "type": "docker",
-                        "image": "",
-                        "system": true,
-                        "entrypoint": "",
-                        "args": [
-                            ""
-                        ],
-                        "mounts": {},
-                        "io-format": "yaml",
-                        "inject": false,
-                        "shm-size": ""
-                    },
-                    "health-checks": {},
-                    "config": null,
-                    "volumes": {},
-                    "min-os-version": "0.2.12",
-                    "interfaces": {
-                        "rpc": {
-                            "name": "RPC interface",
-                            "description": "Good for connecting to your node at a distance.",
-                            "ui": true,
-                            "tor-config": {
-                                "hidden-service-version": "v3",
-                                "port-mapping": {}
-                            },
-                            "lan-config": {
-                                "44": {
-                                    "ssl": true,
-                                    "mapping": 33
-                                }
-                            },
-                            "protocols": []
-                        },
-                        "grpc": {
-                            "name": "GRPC",
-                            "description": "Certain wallet use grpc.",
-                            "ui": false,
-                            "tor-config": {
-                                "hidden-service-version": "v3",
-                                "port-mapping": {}
-                            },
-                            "lan-config": {
-                                "66": {
-                                    "ssl": true,
-                                    "mapping": 55
-                                }
-                            },
-                            "protocols": []
-                        }
-                    },
-                    "backup": {
-                        "create": {
-                            "type": "docker",
-                            "image": "",
-                            "system": true,
-                            "entrypoint": "",
-                            "args": [
-                                ""
-                            ],
-                            "mounts": {},
-                            "io-format": "yaml",
-                            "inject": false,
-                            "shm-size": ""
-                        },
-                        "restore": {
-                            "type": "docker",
-                            "image": "",
-                            "system": true,
-                            "entrypoint": "",
-                            "args": [
-                                ""
-                            ],
-                            "mounts": {},
-                            "io-format": "yaml",
-                            "inject": false,
-                            "shm-size": ""
-                        }
-                    },
-                    "migrations": null,
-                    "actions": {
-                        "resync": {
-                            "name": "Resync Network Graph",
-                            "description": "Your node will resync its network graph.",
-                            "warning": "This will take a couple hours.",
-                            "allowed-statuses": [
-                                "running"
-                            ],
-                            "implementation": {
-                                "type": "docker",
-                                "image": "",
-                                "system": true,
-                                "entrypoint": "",
-                                "args": [
-                                    ""
-                                ],
-                                "mounts": {},
-                                "io-format": "yaml",
-                                "inject": false,
-                                "shm-size": ""
-                            },
-                            "input-spec": {
-                                "label": {
-                                    "type": "string",
-                                    "name": "Name of Resync",
-                                    "nullable": false,
-                                    "masked": false,
-                                    "copyable": false
-                                }
-                            }
-                        }
-                    },
-                    "permissions": {},
-                    "dependencies": {
-                        "bitcoind": {
-                            "version": "=0.21.0",
-                            "description": "LND needs bitcoin to live.",
-                            "optional": null,
-                            "recommended": true,
-                            "config": [],
-                            "interfaces": []
-                        },
-                        "bitcoin-proxy": {
-                            "version": ">=0.2.2",
-                            "description": "As long as Bitcoin is pruned, LND needs Bitcoin Proxy to fetch block over the P2P network.",
-                            "optional": null,
-                            "recommended": true,
-                            "config": [],
-                            "interfaces": []
-                        }
-                    }
-                },
                 "status": {
                     "configured": true,
                     "main": {
