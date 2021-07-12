@@ -1,3 +1,3 @@
 # ws-example
 
-`cargo run -- -vv -c example-config.toml`
+`cargo run -- -vvv -c example-config.toml`
