@@ -1,7 +1,7 @@
 {
     "server-info": {
         "id": "start9-abcdefgmm",
-        "version": "1.0.0",
+        "version": "0.3.0",
         "status": "running",
         "lan-address": "start9-abcdefgh.local",
         "tor-address": "myveryownspecialtoraddress.onion",
@@ -20,6 +20,10 @@
             "CPU": "Cortex-A72: 4 Cores @1500MHz",
             "Disk": "1TB SSD",
             "Memory": "8GB"
+        },
+        "connection-addresses": {
+          "tor": ["http://privacy34kn4ez3y3nijweec6w4g54i3g54sdv7r5mr6soma3w4begyd.onion"],
+          "clearnet": ["https://start9.com"]
         }
     },
     "package-data": {
@@ -395,7 +399,6 @@
         }
     },
     "ui": {
-        "server-name": "My Embassy",
         "welcome-ack": "1.0.0",
         "auto-check-updates": true
     }
