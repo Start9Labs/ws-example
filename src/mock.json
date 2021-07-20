@@ -15,6 +15,7 @@
         },
         "eos-marketplace": "https://beta-registry-0-3.start9labs.com",
         "package-marketplace": null,
+        "share-stats": false,
         "unread-notification-count": 4,
         "specs": {
             "CPU": "Cortex-A72: 4 Cores @1500MHz",
