@@ -23,8 +23,18 @@
             "Memory": "8GB"
         },
         "connection-addresses": {
-          "tor": ["http://privacy34kn4ez3y3nijweec6w4g54i3g54sdv7r5mr6soma3w4begyd.onion"],
-          "clearnet": ["https://start9.com"]
+            "tor": ["http://privacy34kn4ez3y3nijweec6w4g54i3g54sdv7r5mr6soma3w4begyd.onion"],
+            "clearnet": ["https://start9.com"]
+        },
+        "sessions": {
+          "b7b1a9ce-f428-4f00-af9e-9dda6e676177": {
+              "last-active": "2021-06-14T20:49:17.774Z",
+              "user-agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
+          },
+          "95132265-17c5-4ddd-8107-d6d7b9d8aed7": {
+              "last-active": "2021-07-14T20:49:17.774Z",
+              "user-agent": "AppleWebKit/{WebKit Rev} (KHTML, like Gecko)"
+          }
         }
     },
     "package-data": {
