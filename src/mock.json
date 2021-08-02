@@ -153,13 +153,112 @@
                           "shm-size": ""
                       },
                       "input-spec": {
-                        "label": {
+                        "reason": {
                             "type": "string",
-                            "name": "Name of Resync",
+                            "name": "Re-sync Reason",
+                            "description": "Your reason for re-syncing. Why are you doing this?",
                             "nullable": false,
                             "masked": false,
-                            "copyable": false
+                            "copyable": false,
+                            "pattern": "^[a-zA-Z]+$",
+                            "patternDescription": "Must contain only letters."
+                        },
+                        "days-ago": {
+                          "type": "number",
+                          "name": "Days Ago",
+                          "description": "Number of days to re-sync.",
+                          "nullable": false,
+                          "default": 100,
+                          "range": "[0, 9999]",
+                          "integral": true
+                      },
+                      "testnet": {
+                        "name": "Testnet",
+                        "type": "boolean",
+                        "description": "determines whether your node is running on testnet or mainnet",
+                        "changeWarning": "Chain will have to resync!",
+                        "default": false
+                      },
+                      "randomEnum": {
+                        "name": "Random Enum",
+                        "type": "enum",
+                        "valueNames": {
+                          "null": "Null",
+                          "good": "Good",
+                          "bad": "Bad",
+                          "ugly": "Ugly"
+                        },
+                        "default": "null",
+                        "description": "This is not even real.",
+                        "changeWarning": "Be careful changing this!",
+                        "values": [
+                          "null",
+                          "good",
+                          "bad",
+                          "ugly"
+                        ]
+                      },
+                      "profile": {
+                        "name": "Profile",
+                        "type": "object",
+                        "uniqueBy": null,
+                        "description": "Your unique profile on the network.",
+                        "nullable": false,
+                        "nullByDefault": false,
+                        "spec": {
+                          "firstName": {
+                            "type": "string",
+                            "name": "First Name",
+                            "description": null,
+                            "nullable": false,
+                            "masked": false,
+                            "copyable": false,
+                            "pattern": "^[a-zA-Z]+$",
+                            "patternDescription": "Must contain only letters."
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "name": "Last Name",
+                            "description": null,
+                            "nullable": false,
+                            "masked": false,
+                            "copyable": false,
+                            "pattern": "^[a-zA-Z]+$",
+                            "patternDescription": "Must contain only letters."
+                          },
+                          "email": {
+                            "type": "string",
+                            "name": "Email",
+                            "description": null,
+                            "nullable": true,
+                            "masked": false,
+                            "copyable": true
+                          },
+                          "password": {
+                            "type": "string",
+                            "name": "Password",
+                            "description": null,
+                            "nullable": false,
+                            "masked": true,
+                            "copyable": true
+                          }
                         }
+                      },
+                      "ips": {
+                        "name": "Whitelist IPs",
+                        "type": "list",
+                        "subtype": "string",
+                        "description": "external ip addresses that are authorized to access your Bitcoin node",
+                        "changeWarning": "Any IP you allow here will have RPC access to your Bitcoin node.",
+                        "range": "[1,10]",
+                        "default": [
+                          "192.168.1.1"
+                        ],
+                        "spec": {
+                          "pattern": "^[0-9]{1,2}([,.][0-9]{1,2})?$",
+                          "patternDescription": "Only numbers and dots."
+                        }
+                      }
                     }
                   }
               },
