@@ -198,6 +198,16 @@
                           "range": "[0, 9999]",
                           "integral": true
                         },
+                        "top-speed": {
+                          "type": "number",
+                          "name": "Top Speed",
+                          "description": "The fastest you can possibly run.",
+                          "nullable": false,
+                          "default": null,
+                          "range": "[-1000, 1000]",
+                          "integral": false,
+                          "units": "m/s"
+                        },
                         "testnet": {
                           "name": "Testnet",
                           "type": "boolean",
@@ -224,27 +234,15 @@
                             "ugly"
                           ]
                         },
-                        "profile": {
-                          "name": "Profile",
+                        "emergency-contact": {
+                          "name": "Emergency Contact",
                           "type": "object",
                           "uniqueBy": null,
-                          "description": "Your unique profile on the network.",
-                          "nullable": false,
-                          "nullByDefault": false,
+                          "description": "The person to contact in case of emergency.",
                           "spec": {
-                            "firstName": {
+                            "name": {
                               "type": "string",
-                              "name": "First Name",
-                              "description": null,
-                              "nullable": false,
-                              "masked": false,
-                              "copyable": false,
-                              "pattern": "^[a-zA-Z]+$",
-                              "patternDescription": "Must contain only letters."
-                            },
-                            "lastName": {
-                              "type": "string",
-                              "name": "Last Name",
+                              "name": "Name",
                               "description": null,
                               "nullable": false,
                               "masked": false,
@@ -256,16 +254,8 @@
                               "type": "string",
                               "name": "Email",
                               "description": null,
-                              "nullable": true,
-                              "masked": false,
-                              "copyable": true
-                            },
-                            "password": {
-                              "type": "string",
-                              "name": "Password",
-                              "description": null,
                               "nullable": false,
-                              "masked": true,
+                              "masked": false,
                               "copyable": true
                             }
                           }
