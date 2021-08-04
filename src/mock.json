@@ -163,6 +163,17 @@
                           "pattern": "^[a-zA-Z]+$",
                           "patternDescription": "Must contain only letters."
                         },
+                        "name": {
+                          "type": "string",
+                          "name": "Your Name",
+                          "description": "Tell the class your name.",
+                          "nullable": true,
+                          "masked": false,
+                          "copyable": false,
+                          "pattern": null,
+                          "patternDescription": null,
+                          "changeWarning": "You may loose all your money by providing your name."
+                        },
                         "notifications": {
                           "name": "Notification Preferences",
                           "type": "list",
