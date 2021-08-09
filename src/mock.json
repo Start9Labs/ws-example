@@ -384,7 +384,8 @@
                         "health-checks": []
                     }
                 },
-                "current-dependencies": {}
+                "current-dependencies": {},
+                "dependency-info": {}
             }
         },
         "lnd": {
@@ -540,9 +541,7 @@
                     },
                     "dependency-errors": {
                         "bitcoin-proxy": {
-                            "type": "not-installed",
-                            "title": "Bitcoin Proxy",
-                            "icon": "assets/img/service-icons/bitcoin-proxy.png"
+                            "type": "not-installed"
                         }
                     }
                 },
@@ -569,6 +568,16 @@
                     "bitcoin-proxy": {
                         "pointers": [],
                         "health-checks": []
+                    }
+                },
+                "dependency-info": {
+                    "bitcoind": {
+                        "title": "Bitcoin Core",
+                        "icon": "assets/img/service-icons/bitcoind.png"
+                    },
+                    "bitcoin-proxy": {
+                        "title": "Bitcoin Proxy",
+                        "icon": "assets/img/service-icons/bitcoin-proxy.png"
                     }
                 }
             }
