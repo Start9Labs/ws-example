@@ -572,11 +572,15 @@
                 },
                 "dependency-info": {
                     "bitcoind": {
-                        "title": "Bitcoin Core",
+                        "manifest": {
+                          "title": "Bitcoin Core"
+                        },
                         "icon": "assets/img/service-icons/bitcoind.png"
                     },
                     "bitcoin-proxy": {
-                        "title": "Bitcoin Proxy",
+                        "manifest": {
+                          "title": "Bitcoin Proxy"
+                        },
                         "icon": "assets/img/service-icons/bitcoin-proxy.png"
                     }
                 }
