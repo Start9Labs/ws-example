@@ -13,11 +13,13 @@ use patch_db::json_ptr::JsonPointer;
 use patch_db::{DiffPatch, Dump, PatchDb, Revision};
 use rpc_toolkit::hyper::http::Error as HttpError;
 use rpc_toolkit::hyper::{Body, Method, Request, Response, Server, StatusCode};
-use rpc_toolkit::rpc_server_helpers::{DynMiddlewareStage2, DynMiddlewareStage3};
+use rpc_toolkit::rpc_server_helpers::{
+    DynMiddlewareStage2, DynMiddlewareStage3, DynMiddlewareStage4,
+};
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
 use rpc_toolkit::yajrc::RpcError;
-use rpc_toolkit::{command, rpc_server, Context};
+use rpc_toolkit::{command, rpc_server, Context, Metadata};
 use serde::Deserialize;
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
@@ -252,9 +254,10 @@ fn err_to_500(e: Error) -> Response<Body> {
         .unwrap()
 }
 
-async fn cors<'a, 'b, Params: for<'de> Deserialize<'de> + 'static>(
+pub async fn cors<M: Metadata>(
     req: &mut Request<Body>,
-) -> Result<Result<DynMiddlewareStage2<'a, 'b, Params>, Response<Body>>, HttpError> {
+    _metadata: M,
+) -> Result<Result<DynMiddlewareStage2, Response<Body>>, HttpError> {
     if req.method() == Method::OPTIONS {
         Ok(Err(Response::builder()
             .header(
@@ -270,13 +273,19 @@ async fn cors<'a, 'b, Params: for<'de> Deserialize<'de> + 'static>(
             .header("Access-Control-Allow-Credentials", "true")
             .body(Body::empty())?))
     } else {
-        Ok(Ok(Box::new(|_req| {
+        Ok(Ok(Box::new(|_, _| {
             async move {
-                let res: DynMiddlewareStage3 = Box::new(|res| {
+                let res: DynMiddlewareStage3 = Box::new(|_, _| {
                     async move {
-                        res.headers_mut()
-                            .insert("Access-Control-Allow-Origin", "*".parse()?);
-                        Ok::<_, HttpError>(())
+                        let res: DynMiddlewareStage4 = Box::new(|res| {
+                            async move {
+                                res.headers_mut()
+                                    .insert("Access-Control-Allow-Origin", "*".parse()?);
+                                Ok::<_, HttpError>(())
+                            }
+                            .boxed()
+                        });
+                        Ok::<_, HttpError>(Ok(res))
                     }
                     .boxed()
                 });
