@@ -161,7 +161,7 @@
                           "masked": false,
                           "copyable": false,
                           "pattern": "^[a-zA-Z]+$",
-                          "patternDescription": "Must contain only letters."
+                          "pattern-description": "Must contain only letters."
                         },
                         "name": {
                           "type": "string",
@@ -171,8 +171,8 @@
                           "masked": false,
                           "copyable": false,
                           "pattern": null,
-                          "patternDescription": null,
-                          "changeWarning": "You may loose all your money by providing your name."
+                          "pattern-description": null,
+                          "change-warning": "You may loose all your money by providing your name."
                         },
                         "notifications": {
                           "name": "Notification Preferences",
@@ -184,7 +184,7 @@
                             "email"
                           ],
                           "spec": {
-                            "valueNames": {
+                            "value-names": {
                               "email": "Email",
                               "text": "Text",
                               "call": "Call",
@@ -223,13 +223,13 @@
                           "name": "Testnet",
                           "type": "boolean",
                           "description": "determines whether your node is running on testnet or mainnet",
-                          "changeWarning": "Chain will have to resync!",
+                          "change-warning": "Chain will have to resync!",
                           "default": false
                         },
                         "randomEnum": {
                           "name": "Random Enum",
                           "type": "enum",
-                          "valueNames": {
+                          "value-names": {
                             "null": "Null",
                             "good": "Good",
                             "bad": "Bad",
@@ -237,7 +237,7 @@
                           },
                           "default": "null",
                           "description": "This is not even real.",
-                          "changeWarning": "Be careful changing this!",
+                          "change-warning": "Be careful changing this!",
                           "values": [
                             "null",
                             "good",
@@ -248,7 +248,7 @@
                         "emergency-contact": {
                           "name": "Emergency Contact",
                           "type": "object",
-                          "uniqueBy": null,
+                          "unique-by": null,
                           "description": "The person to contact in case of emergency.",
                           "spec": {
                             "name": {
@@ -259,7 +259,7 @@
                               "masked": false,
                               "copyable": false,
                               "pattern": "^[a-zA-Z]+$",
-                              "patternDescription": "Must contain only letters."
+                              "pattern-description": "Must contain only letters."
                             },
                             "email": {
                               "type": "string",
@@ -276,27 +276,27 @@
                           "type": "list",
                           "subtype": "string",
                           "description": "external ip addresses that are authorized to access your Bitcoin node",
-                          "changeWarning": "Any IP you allow here will have RPC access to your Bitcoin node.",
+                          "change-warning": "Any IP you allow here will have RPC access to your Bitcoin node.",
                           "range": "[1,10]",
                           "default": [
                             "192.168.1.1"
                           ],
                           "spec": {
                             "pattern": "^[0-9]{1,2}([,.][0-9]{1,2})?$",
-                            "patternDescription": "Only numbers and dots."
+                            "pattern-description": "Only numbers and dots."
                           }
                         },
                         "bitcoinNode": {
                           "name": "Bitcoin Node Settings",
                           "type": "union",
-                          "uniqueBy": null,
+                          "unique-by": null,
                           "description": "The node settings",
                           "default": "internal",
-                          "changeWarning": "Careful changing this",
+                          "change-warning": "Careful changing this",
                           "tag": {
                               "id": "type",
                               "name": "Type",
-                              "variantNames": {
+                              "variant-names": {
                                 "internal": "Internal",
                                 "external": "External"
                               }
@@ -328,7 +328,7 @@
                                 "nullable": false,
                                 "default": "bitcoinnode.com",
                                 "pattern": ".*",
-                                "patternDescription": "anything",
+                                "pattern-description": "anything",
                                 "masked": false,
                                 "copyable": true
                               }
@@ -360,21 +360,18 @@
                     },
                     "dependency-errors": {}
                 },
-                "interface-info": {
-                    "ip": "10.0.0.1",
-                    "addresses": {
-                        "ui": {
-                            "tor-address": "bitcoind-ui-address.onion",
-                            "lan-address": "bitcoind-ui-address.local"
-                        },
-                        "rpc": {
-                            "tor-address": "bitcoind-rpc-address.onion",
-                            "lan-address": "bitcoind-rpc-address.local"
-                        },
-                        "p2p": {
-                            "tor-address": "bitcoind-p2p-address.onion",
-                            "lan-address": "bitcoind-p2p-address.local"
-                        }
+                "interface-addresses": {
+                    "ui": {
+                        "tor-address": "bitcoind-ui-address.onion",
+                        "lan-address": "bitcoind-ui-address.local"
+                    },
+                    "rpc": {
+                        "tor-address": "bitcoind-rpc-address.onion",
+                        "lan-address": "bitcoind-rpc-address.local"
+                    },
+                    "p2p": {
+                        "tor-address": "bitcoind-p2p-address.onion",
+                        "lan-address": "bitcoind-p2p-address.local"
                     }
                 },
                 "system-pointers": [],
@@ -545,17 +542,14 @@
                         }
                     }
                 },
-                "interface-info": {
-                    "ip": "10.0.0.1",
-                    "addresses": {
-                        "rpc": {
-                            "tor-address": "lnd-rpc-address.onion",
-                            "lan-address": "lnd-rpc-address.local"
-                        },
-                        "grpc": {
-                            "tor-address": "lnd-grpc-address.onion",
-                            "lan-address": "lnd-grpc-address.local"
-                        }
+                "interface-addresses": {
+                    "rpc": {
+                        "tor-address": "lnd-rpc-address.onion",
+                        "lan-address": "lnd-rpc-address.local"
+                    },
+                    "grpc": {
+                        "tor-address": "lnd-grpc-address.onion",
+                        "lan-address": "lnd-grpc-address.local"
                     }
                 },
                 "system-pointers": [],
