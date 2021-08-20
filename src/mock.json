@@ -164,7 +164,7 @@
                           "copyable": false,
                           "pattern": null,
                           "pattern-description": null,
-                          "change-warning": "You may loose all your money by providing your name."
+                          "warning": "You may loose all your money by providing your name."
                         },
                         "notifications": {
                           "name": "Notification Preferences",
@@ -215,7 +215,7 @@
                           "name": "Testnet",
                           "type": "boolean",
                           "description": "determines whether your node is running on testnet or mainnet",
-                          "change-warning": "Chain will have to resync!",
+                          "warning": "Chain will have to resync!",
                           "default": false
                         },
                         "randomEnum": {
@@ -229,7 +229,7 @@
                           },
                           "default": "null",
                           "description": "This is not even real.",
-                          "change-warning": "Be careful changing this!",
+                          "warning": "Be careful changing this!",
                           "values": [
                             "null",
                             "good",
@@ -268,7 +268,7 @@
                           "type": "list",
                           "subtype": "string",
                           "description": "external ip addresses that are authorized to access your Bitcoin node",
-                          "change-warning": "Any IP you allow here will have RPC access to your Bitcoin node.",
+                          "warning": "Any IP you allow here will have RPC access to your Bitcoin node.",
                           "range": "[1,10]",
                           "default": [
                             "192.168.1.1"
@@ -284,7 +284,7 @@
                           "unique-by": null,
                           "description": "The node settings",
                           "default": "internal",
-                          "change-warning": "Careful changing this",
+                          "warning": "Careful changing this",
                           "tag": {
                               "id": "type",
                               "name": "Type",
