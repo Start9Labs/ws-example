@@ -61,7 +61,10 @@
                   "shm-size": ""
               },
               "health-checks": {},
-              "config": null,
+              "config": {
+                "get": { },
+                "set": { }
+              },
               "volumes": {},
               "min-os-version": "0.2.12",
               "interfaces": {
@@ -418,7 +421,10 @@
                   "shm-size": ""
               },
               "health-checks": {},
-              "config": null,
+              "config": {
+                "get": { },
+                "set": { }
+              },
               "volumes": {},
               "min-os-version": "0.2.12",
               "interfaces": {
