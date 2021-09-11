@@ -1,9 +1,9 @@
 {
     "server-info": {
-        "id": "start9-abcdefgh",
+        "id": "embassy-abcdefgh",
         "version": "0.3.0",
         "status": "running",
-        "lan-address": "https://start9-abcdefgh.local",
+        "lan-address": "https://embassy-abcdefgh.local",
         "tor-address": "http://myveryownspecialtoraddress.onion",
         "eos-marketplace": "https://beta-registry-0-3.start9labs.com",
         "package-marketplace": null,
@@ -580,6 +580,7 @@
         }
     },
     "ui": {
+        "name": "Matt's Embassy",
         "welcome-ack": "1.0.0",
         "auto-check-updates": true
     }
