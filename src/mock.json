@@ -513,8 +513,10 @@
                   "bitcoind": {
                       "version": "=0.21.0",
                       "description": "LND needs bitcoin to live.",
-                      "optional": null,
-                      "recommended": true,
+                      "requirement": {
+                        "type": "opt-out",
+                        "how": "You can use an external node from your Embassy if you prefer."
+                      },
                       "config": [],
                       "interfaces": []
                   },
