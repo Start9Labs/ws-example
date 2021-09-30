@@ -343,14 +343,23 @@
                         "status": "running",
                         "started": "2021-06-14T20:49:17.774Z",
                         "health": {
+                            "ephemeral-health-check": {
+                              "result": "starting"
+                            },
                             "chain-state": {
-                                "time": "2021-06-14T20:49:17.774Z",
-                                "result": "success"
+                                "result": "loading",
+                                "message": "Bitcoin is syncing from genesis"
                             },
                             "p2p-interface": {
-                              "time": "2021-06-14T20:49:17.774Z",
-                              "result": "success"
-                          }
+                                "result": "success"
+                            },
+                            "rpc-interface": {
+                                "result": "failure",
+                                "error": "RPC interface unreachable."
+                            },
+                            "unnecessary-health-check": {
+                                "result": "disabled"
+                            }
                         }
                     },
                     "dependency-errors": {}
@@ -523,8 +532,10 @@
                   "bitcoin-proxy": {
                       "version": ">=0.2.2",
                       "description": "As long as Bitcoin is pruned, LND needs Bitcoin Proxy to fetch block over the P2P network.",
-                      "optional": null,
-                      "recommended": true,
+                      "requirement": {
+                        "type": "opt-in",
+                        "how": "To use Proxy's user management system, go to LND config and select Bitcoin Proxy under Bitcoin config."
+                      },
                       "config": [],
                       "interfaces": []
                   }
