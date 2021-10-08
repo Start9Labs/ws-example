@@ -18,7 +18,7 @@ use rpc_toolkit::rpc_server_helpers::{
 };
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
-use rpc_toolkit::yajrc::RpcError;
+use rpc_toolkit::yajrc::{GenericRpcMethod, RpcError, RpcRequest, RpcResponse};
 use rpc_toolkit::{command, rpc_server, Context, Metadata};
 use serde::Deserialize;
 use tokio::fs::File;
@@ -130,17 +130,17 @@ impl Deref for RpcContext {
 #[derive(serde::Serialize)]
 pub struct WithRevision<T> {
     pub response: T,
-    pub revision: Arc<Revision>,
+    pub revision: Option<Arc<Revision>>,
 }
 
 #[command(subcommands(db, echo))]
-fn main_api(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
-    Ok(ctx)
+fn main_api() -> Result<(), RpcError> {
+    Ok(())
 }
 
 #[command(subcommands(revisions, dump, put, patch))]
-fn db(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
-    Ok(ctx)
+fn db() -> Result<(), RpcError> {
+    Ok(())
 }
 
 #[derive(serde::Serialize)]
@@ -180,8 +180,8 @@ async fn dump(#[context] ctx: RpcContext) -> Result<Dump, RpcError> {
 }
 
 #[command(subcommands(ui))]
-fn put(#[context] ctx: RpcContext) -> Result<RpcContext, RpcError> {
-    Ok(ctx)
+fn put() -> Result<(), RpcError> {
+    Ok(())
 }
 
 #[command(rpc_only)]
@@ -235,7 +235,12 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
                 let rev = sub.recv().await.unwrap();
                 stream
                     .send(Message::Text(
-                        rpc_toolkit::serde_json::to_string(&rev).unwrap(),
+                        rpc_toolkit::serde_json::to_string(
+                            &RpcResponse::<GenericRpcMethod<String>>::from_result(
+                                Ok::<_, RpcError>(rpc_toolkit::serde_json::to_value(&rev).unwrap()),
+                            ),
+                        )
+                        .unwrap(),
                     ))
                     .await
                     .unwrap();
