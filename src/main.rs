@@ -18,7 +18,7 @@ use rpc_toolkit::rpc_server_helpers::{
 };
 use rpc_toolkit::serde_json::Value;
 use rpc_toolkit::url::Host;
-use rpc_toolkit::yajrc::{GenericRpcMethod, RpcError, RpcRequest, RpcResponse};
+use rpc_toolkit::yajrc::{GenericRpcMethod, RpcError, RpcResponse};
 use rpc_toolkit::{command, rpc_server, Context, Metadata};
 use serde::Deserialize;
 use tokio::fs::File;
@@ -226,7 +226,12 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
             stream.next().await;
             stream
                 .send(Message::Text(
-                    rpc_toolkit::serde_json::to_string(&dump).unwrap(),
+                    rpc_toolkit::serde_json::to_string(
+                        &RpcResponse::<GenericRpcMethod<String>>::from_result(Ok::<_, RpcError>(
+                            rpc_toolkit::serde_json::to_value(&dump).unwrap(),
+                        )),
+                    )
+                    .unwrap(),
                 ))
                 .await
                 .unwrap();
