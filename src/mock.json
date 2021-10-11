@@ -19,6 +19,13 @@
             "clearnet": ["https://start9.com"]
         }
     },
+    "recovered-packages": {
+      "btc-rpc-proxy": {
+        "title": "Bitcoin Proxy",
+        "icon": "assets/img/service-icons/btc-rpc-proxy.png",
+        "version": "0.2.2"
+      }
+    },
     "package-data": {
         "bitcoind": {
             "state": "installed",
@@ -526,7 +533,7 @@
                       "config": null,
                       "critical": true
                   },
-                  "bitcoin-proxy": {
+                  "btc-rpc-proxy": {
                       "version": ">=0.2.2",
                       "description": "As long as Bitcoin is pruned, LND needs Bitcoin Proxy to fetch block over the P2P network.",
                       "requirement": {
@@ -545,7 +552,7 @@
                         "status": "stopped"
                     },
                     "dependency-errors": {
-                        "bitcoin-proxy": {
+                        "btc-rpc-proxy": {
                             "type": "not-installed"
                         }
                     }
@@ -567,7 +574,7 @@
                         "pointers": [],
                         "health-checks": []
                     },
-                    "bitcoin-proxy": {
+                    "btc-rpc-proxy": {
                         "pointers": [],
                         "health-checks": []
                     }
@@ -579,11 +586,11 @@
                         },
                         "icon": "assets/img/service-icons/bitcoind.png"
                     },
-                    "bitcoin-proxy": {
+                    "btc-rpc-proxy": {
                         "manifest": {
                           "title": "Bitcoin Proxy"
                         },
-                        "icon": "assets/img/service-icons/bitcoin-proxy.png"
+                        "icon": "assets/img/service-icons/btc-rpc-proxy.png"
                     }
                 }
             }
