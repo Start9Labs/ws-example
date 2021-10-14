@@ -553,7 +553,8 @@
                     },
                     "dependency-errors": {
                         "btc-rpc-proxy": {
-                            "type": "not-installed"
+                          "type": "config-unsatisfied",
+                          "errors": "This is a config unsatisfied error"
                         }
                     }
                 },
