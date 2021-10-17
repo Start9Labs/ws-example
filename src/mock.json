@@ -1,7 +1,15 @@
 {
+    "ui": {
+        "name": "Matt's Embassy",
+        "auto-check-updates": true,
+        "pkg-order": [],
+        "ack-welcome": "1.0.0",
+        "ack-share-stats": false
+    },
     "server-info": {
         "id": "embassy-abcdefgh",
         "version": "0.3.0",
+        "last-backup": null,
         "status": "running",
         "lan-address": "https://embassy-abcdefgh.local",
         "tor-address": "http://myveryownspecialtoraddress.onion",
@@ -343,6 +351,7 @@
               "dependencies": {}
             },
             "installed": {
+              "last-backup": null,
                 "status": {
                     "configured": true,
                     "main": {
@@ -546,6 +555,7 @@
               }
             },
             "installed": {
+              "last-backup": null,
                 "status": {
                     "configured": true,
                     "main": {
@@ -596,10 +606,5 @@
                 }
             }
         }
-    },
-    "ui": {
-        "name": "Matt's Embassy",
-        "welcome-ack": "1.0.0",
-        "auto-check-updates": true
     }
 }
