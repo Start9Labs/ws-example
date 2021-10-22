@@ -75,7 +75,13 @@
                   "inject": false,
                   "shm-size": ""
               },
-              "health-checks": {},
+              "health-checks": {
+                "chain-state": null,
+                "ephemeral-health-check": null,
+                "p2p-interface": null,
+                "rpc-interface": null,
+                "unnecessary-health-check": null
+              },
               "config": {
                 "get": { },
                 "set": { }
