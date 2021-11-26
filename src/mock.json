@@ -547,7 +547,7 @@
                         "how": "You can use an external node from your Embassy if you prefer."
                       },
                       "config": null,
-                      "critical": true
+                      "severity": "critical"
                   },
                   "btc-rpc-proxy": {
                       "version": ">=0.2.2",
@@ -557,7 +557,7 @@
                         "how": "To use Proxy's user management system, go to LND config and select Bitcoin Proxy under Bitcoin config."
                       },
                       "config": null,
-                      "critical": false
+                      "severity": "warning"
                   }
               }
             },
