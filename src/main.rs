@@ -238,7 +238,7 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
 
             loop {
                 let rev = sub.recv().await.unwrap();
-                stream
+                match stream
                     .send(Message::Text(
                         rpc_toolkit::serde_json::to_string(
                             &RpcResponse::<GenericRpcMethod<String>>::from_result(
@@ -248,7 +248,11 @@ async fn subscribe(ctx: RpcContext, req: Request<Body>) -> Result<Response<Body>
                         .unwrap(),
                     ))
                     .await
-                    .unwrap();
+                {
+                    Ok(()) | Err(tokio_tungstenite::tungstenite::Error::ConnectionClosed) => Ok(()),
+                    Err(e) => Err(e),
+                }
+                .unwrap();
             }
         });
     }
@@ -324,26 +328,6 @@ async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     })
     .map_err(Error::from);
 
-    let twiddler_ctx = rpc_ctx.clone();
-    let twiddler_task = tokio::spawn(async move {
-        loop {
-            tokio::time::sleep(Duration::from_secs(5)).await;
-            log::info!("updating /package-data/bitcoind/installed/status/main/started");
-            twiddler_ctx
-                .db
-                .put(
-                    &"/package-data/bitcoind/installed/status/main/started"
-                        .parse::<JsonPointer>()
-                        .unwrap(),
-                    &Utc::now(),
-                    None,
-                )
-                .await
-                .unwrap();
-        }
-    })
-    .map_err(Error::from);
-
     let rpc_server = rpc_server!({
         command: main_api,
         context: rpc_ctx,
@@ -379,7 +363,7 @@ async fn inner_main(cfg_path: Option<&str>) -> Result<(), Error> {
     }
     .map_err(Error::from);
 
-    tokio::try_join!(revision_cache_task, twiddler_task, rpc_server, ws_server)?;
+    tokio::try_join!(revision_cache_task, rpc_server, ws_server)?;
 
     Ok(())
 }
